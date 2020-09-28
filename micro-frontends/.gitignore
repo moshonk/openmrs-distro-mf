@@ -1,0 +1,4 @@
+**/node_modules
+**/build
+**/openmrs
+.DS_Store

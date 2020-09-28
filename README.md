@@ -18,7 +18,7 @@ To use it, simply refer to it as a `<parent>` in a child distribution's **pom.xm
 ```xml
 <parent>
   <groupId>net.mekomsolutions</groupId>
-  <artifactId>bahmni-distro-haiti</artifactId>
+  <artifactId>openmrs-distro-mf</artifactId>
   <version>1.0.0</version>
 </parent>
 ```
@@ -30,4 +30,6 @@ To use it, simply refer to it as a `<parent>` in a child distribution's **pom.xm
 * `openmrs_config/`
 <br/>The OpenMRS bespoke configuration (more [here](https://github.com/mekomsolutions/openmrs-config-haiti)) to be processed by the [Initializer module](https://github.com/mekomsolutions/openmrs-module-initializer).
 * `openmrs_core/`
-The target version of OpenMRS Core.
+<br>The target version of OpenMRS Core.</br>
+* `frontends/`
+<br>The required set of Micro-Frontends.</br>
