@@ -15,7 +15,7 @@
   <fileSets>
     <fileSet>
       <outputDirectory>..</outputDirectory>
-      <directory>mf/</directory>
+      <directory>openmrs/frontend</directory>
     </fileSet>
   </fileSets>
 </assembly>
