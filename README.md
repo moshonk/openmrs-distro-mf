@@ -12,6 +12,23 @@ It downloads and brings in one place all artifacts needed by the distribution, s
 mvn clean package
 ```
 
+To run the complete suite locally (OpenMRS backend + MF):
+```
+export DISTRO_GROUP="mf"
+export DISTRO_VERSION=1.0.0-SNAPSHOT
+export DISTRO_PATH=../target/openmrs-distro-$DISTRO_GROUP-$DISTRO_VERSION
+export OPENMRS_CONFIG_PATH=$DISTRO_PATH/openmrs_config
+export OPENMRS_MODULES_PATH=$DISTRO_PATH/openmrs_modules
+export OPENMRS_CORE_PATH=$DISTRO_PATH/openmrs-core
+export OPENMRS_MF_PATH=$DISTRO_PATH/frontends
+```
+Run:
+```
+cd docker/
+docker-compose -p $DISTRO_GROUP -f docker-compose-with-spa.yml up
+```
+---
+
 This distribution can be used as a parent distribution when implementing any MF-based OpenMRS distribution. It already ships out of the box with a number of useful common features useful for a standard project: registration, clinical charts, concept dictionary, ... etc.
 
 To use it, simply refer to it as a `<parent>` in a child distribution's **pom.xml** file:
