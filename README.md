@@ -10,7 +10,7 @@ It downloads and brings in one place all artifacts needed by the distribution.
 
 Folder structure:
 - `docker/` Where to run the Docker Compose project. See below for detailed instructions.
-- `micro-frontends/` Npm project to fetch all Micro Frontend modules and generate the corresponding Import Map, using [Packmap](https://github.com/openmrs/packmap). The list of the packaged Micro Frontends is documented in the [package.json](micro-frontends/package.json) file:
+- `micro-frontends/` Npm project to fetch all Micro Frontend modules and compute the corresponding Import Map -using [Packmap](https://github.com/openmrs/packmap). The list of the packaged Micro Frontends is documented in the [package.json](micro-frontends/package.json) file:
 ```
 "dependencies": {
     "@openmrs/esm-api": "^3.0.0",
@@ -18,7 +18,7 @@ Folder structure:
     "@openmrs/esm-error-handling": "^1.1.1",
     ...
 ```
-- `openmrs-config-mf/` OpenMRS Config needed by [Initializer](https://github.com/mekomsolutions/openmrs-module-initializer) to configure the OpenMRS backend (concepts, global properties etc...)
+- `openmrs-config-mf/` A default OpenMRS Config  (processed by [Initializer](https://github.com/mekomsolutions/openmrs-module-initializer)) to configure the OpenMRS backend with a minimal set of metadata (concepts, global properties etc...)
 - the root [pom.xml](pom.xml) is where all backend dependencies are set:
 ```
 <spaVersion>1.0.7-SNAPSHOT</spaVersion>
@@ -29,26 +29,16 @@ Folder structure:
 ```
 
 
-## Build and Run
+## Build and run locally:
 Build the project:
 ```bash
 mvn clean package
 ```
 
 And run it locally (OpenMRS backend + MF):
-```
-export DISTRO_GROUP="mf"
-export DISTRO_VERSION=1.0.0-SNAPSHOT
-export DISTRO_PATH=../target/openmrs-distro-$DISTRO_GROUP-$DISTRO_VERSION
-export OPENMRS_CONFIG_PATH=$DISTRO_PATH/openmrs_config
-export OPENMRS_MODULES_PATH=$DISTRO_PATH/openmrs_modules
-export OPENMRS_CORE_PATH=$DISTRO_PATH/openmrs-core
-export OPENMRS_MF_PATH=$DISTRO_PATH/frontends
-```
-
-```
+```bash
 cd docker/
-docker-compose -p $DISTRO_GROUP -f docker-compose-with-spa.yml up
+docker-compose -p mf -f docker-compose-with-spa.yml up
 ```
 
 
@@ -57,6 +47,7 @@ docker-compose -p $DISTRO_GROUP -f docker-compose-with-spa.yml up
 <img src="readme/openmrs-login.png" alt="OpenMRS MF Login" width="300"/>
 
 ---
+
 
 This distribution can be used as a parent distribution when implementing any MF-based OpenMRS distribution.
 
