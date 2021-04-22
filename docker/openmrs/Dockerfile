@@ -16,6 +16,8 @@ COPY startup.sh /usr/local/tomcat/startup.sh
 
 RUN sed -i '/Connector port="8080"/a URIEncoding="UTF-8" relaxedPathChars="[]|" relaxedQueryChars="[]|{}^&#x5c;&#x60;&quot;&lt;&gt;"' /usr/local/tomcat/conf/server.xml
 
+# RUN sed -i '/<\/welcome-file-list>/i \n<filter>\n<filter-name>CorsFilter<\/filter-name>\n<filter-class>org.apache.catalina.filters.CorsFilter<\/filter-class>\n<\/filter>\n<filter-mapping>\n<filter-name>CorsFilter<\/filter-name>\n<url-pattern>\/*<\/url-pattern>\n<\/filter-mapping>' /usr/local/tomcat/conf/server.xml
+
 RUN chmod +x /usr/local/tomcat/wait-for-it.sh
 RUN chmod +x /usr/local/tomcat/startup.sh
 

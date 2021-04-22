@@ -29,6 +29,7 @@ services:
       - "${OPENMRS_CONFIG_CHECKSUMS_PATH:-openmrs-config-checksums}:/usr/local/tomcat/.OpenMRS/configuration_checksums/"
       - "${OPENMRS_MF_PATH:-openmrs-mf}:/usr/local/tomcat/.OpenMRS/frontend/"
       - ./properties/openmrs/:/etc/properties/
+      - ./tomcatconfig/web.xml:/usr/local/tomcat/conf/web.xml
 
   # MySQL
   mysql:
