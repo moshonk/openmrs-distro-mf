@@ -1,4 +1,9 @@
 services:
+  # Proxy
+  proxy:
+    build: ./proxy
+    ports:
+      - 80:80
 
   # OpenMRS:
   openmrs:
@@ -27,9 +32,7 @@ services:
       - "${OPENMRS_MODULES_PATH:-openmrs-modules}:/usr/local/tomcat/.OpenMRS/modules/"
       - "${OPENMRS_CONFIG_PATH:-openmrs-config}:/usr/local/tomcat/.OpenMRS/configuration/"
       - "${OPENMRS_CONFIG_CHECKSUMS_PATH:-openmrs-config-checksums}:/usr/local/tomcat/.OpenMRS/configuration_checksums/"
-      - "${OPENMRS_MF_PATH:-openmrs-mf}:/usr/local/tomcat/.OpenMRS/frontend/"
       - ./properties/openmrs/:/etc/properties/
-      - ./tomcatconfig/web.xml:/usr/local/tomcat/conf/web.xml
 
   # MySQL
   mysql:
@@ -44,6 +47,20 @@ services:
     image: "mariadb:10.3"
     volumes:
       - "${MYSQL_DATADIR:-mysql-data}:/var/lib/mysql"
+
+  # Microfrontends
+  frontend:
+    #ports:
+    #  - 8082:8080
+    build: ./ui
+    environment:
+      SPA_PATH: /ui
+      API_URL: /openmrs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/ui"]
+      timeout: 5s
+    volumes:
+      - /Users/komondi/Development/openmrs-esm-core/packages/esm-app-shell/dist:/var/www/ui/
 
 version: "3.7"
 volumes:
